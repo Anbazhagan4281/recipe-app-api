@@ -13,5 +13,24 @@ services:
     volumes:
     #maping working directry we change or update in local project it update alkso in the docker container
       - ./app:/app
+    environment:
+      - DB_HOST=db
+      - DB_NAME=devdb
+      - DB_USER=devuser
+      - DB_PASS=changeme
+    depends_on:
+      - db
     command: >
       sh -c "python manage.py runserver 0.0.0.0:8000"
+  
+  db:
+    image: postgres:13-alpine
+    volumes:
+      - dev-db-data:/var/lib/postgresssql/data
+    environment:
+      - POSTGESS_DB=devdb
+      - POSTGESS_USER=devuser
+      - POSTGESS_PASSWORD=changeme
+
+volumes:
+  dev-db-data:
