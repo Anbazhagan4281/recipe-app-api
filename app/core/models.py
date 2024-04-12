@@ -7,7 +7,7 @@ from django.contrib.auth.models import (
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **kwargs):
-        if not email:
+        if not email: 
             raise ValueError("Email is Required")
         user = self.model(email=self.normalize_email(email), **kwargs)
         user.set_password(password)
@@ -25,7 +25,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
-    id_staff = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
 
     objects = UserManager()
 
